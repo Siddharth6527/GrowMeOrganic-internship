@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { Snackbar } from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -40,6 +41,7 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+  const Navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState<{
     status: string;
@@ -100,6 +102,9 @@ export default function Login() {
         email: userData.enteredEmail,
       };
       localStorage.setItem("user", JSON.stringify(data));
+      setTimeout(() => {
+        Navigate("/home");
+      }, 3000);
     } else {
       setAlertMessage({
         status: "error",
