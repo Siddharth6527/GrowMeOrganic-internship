@@ -3,10 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-// import FormControlLabel from "@mui/material/FormControlLabel";
-// import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
-// import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -40,8 +37,6 @@ function Copyright(props: any) {
     </Typography>
   );
 }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Login() {
@@ -50,59 +45,65 @@ export default function Login() {
     status: string;
     message: string;
   }>({
-    status: "",
-    message: "",
+    status: "error",
+    message: "Try Again! Some went wrong",
   });
 
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
+  const handleClose = () => {
     setOpen(false);
   };
 
-  const [enteredName, setEnteredName] = useState<HTMLInputElement | string>();
-  const [enteredNumber, setEnteredNumber] = useState<
-    HTMLInputElement | string
-  >();
-  const [enteredEmail, setEnteredEmail] = useState<HTMLInputElement | string>();
+  interface User {
+    enteredName: string;
+    enteredNumber: number;
+    enteredEmail: string;
+  }
 
-  const NameHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setEnteredName(event.target.value);
+  const [userData, setUserData] = useState<User>({
+    enteredName: "",
+    enteredNumber: 0,
+    enteredEmail: "",
+  });
+
+  const nameHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setUserData((prev) => {
+      return { ...prev, enteredName: event.target.value };
+    });
   };
+
   const numberHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setEnteredNumber(event.target.value);
+    setUserData((prev) => {
+      return { ...prev, enteredNumber: Number(event.target.value) };
+    });
   };
   const emailHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setEnteredEmail(event.target.value);
+    setUserData((prev) => {
+      return { ...prev, enteredEmail: event.target.value };
+    });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (enteredEmail && enteredName && enteredNumber) {
+    if (
+      userData.enteredEmail &&
+      userData.enteredName &&
+      userData.enteredNumber
+    ) {
       setAlertMessage({
         status: "success",
         message: "Login Successfull",
       });
       setOpen(true);
       const data = {
-        name: enteredName,
-        number: enteredNumber,
-        email: enteredEmail,
+        name: userData.enteredName,
+        number: userData.enteredNumber,
+        email: userData.enteredEmail,
       };
       localStorage.setItem("user", JSON.stringify(data));
     } else {
       setAlertMessage({
         status: "error",
-        message: "Try Again! Some went wrong",
+        message: "Input Fields can't be left Empty",
       });
       setOpen(true);
       console.log("Try Again!");
@@ -112,14 +113,13 @@ export default function Login() {
   return (
     <>
       <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={open}
         autoHideDuration={3000}
-        // anchorOrigin={{ "top", "right" }}
         onClose={handleClose}
       >
         <Alert
           onClose={handleClose}
-          // severity={"Success"}
           severity={alertMessage.status === "success" ? "success" : "error"}
           sx={{ width: "100%" }}
         >
@@ -158,8 +158,8 @@ export default function Login() {
                 name="name"
                 autoComplete="name"
                 autoFocus
-                value={enteredName || []}
-                onChange={NameHandler}
+                value={userData.enteredName || []}
+                onChange={nameHandler}
               />
               <TextField
                 margin="normal"
@@ -170,7 +170,7 @@ export default function Login() {
                 type="number"
                 id="number"
                 autoComplete="number"
-                value={enteredNumber || []}
+                value={userData.enteredNumber || []}
                 onChange={numberHandler}
               />
               <TextField
@@ -181,7 +181,7 @@ export default function Login() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                value={enteredEmail || []}
+                value={userData.enteredEmail || []}
                 onChange={emailHandler}
               />
               <Button

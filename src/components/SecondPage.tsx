@@ -1,5 +1,5 @@
 import UserTable from "./UserTable";
-import DepartmentCheckbox from "./DepartmentCheckbox";
+import Departments from "./Departments";
 import { Box } from "@mui/material";
 import { Divider } from "@mui/material";
 
@@ -10,7 +10,7 @@ const SecondPage = () => {
       <Box sx={{ height: 200 }} />
       <Divider />
       <Box sx={{ height: 100 }} />
-      <DepartmentCheckbox />
+      <Departments />
     </div>
   );
 };
