@@ -1,17 +1,28 @@
-// import { useState } from "react";
 import "./App.css";
 import Login from "./components/Login";
-// import SecondPage from "./components/SecondPage";
+import Home from "./pages/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "./pages/Root";
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "home",
+          element: <Home />,
+        },
+      ],
+    },
+  ]);
 
-  return (
-    <>
-      <Login />
-      {/* <SecondPage /> */}
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -49,10 +49,6 @@ export default function Login() {
     message: "Try Again! Some went wrong",
   });
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   interface User {
     enteredName: string;
     enteredNumber: number;
@@ -64,6 +60,10 @@ export default function Login() {
     enteredNumber: 0,
     enteredEmail: "",
   });
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const nameHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setUserData((prev) => {
