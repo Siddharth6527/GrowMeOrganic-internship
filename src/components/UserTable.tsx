@@ -2,6 +2,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import TableData from "../models/TableData";
 import { useState, useEffect } from "react";
+import Typography from "@mui/material/Typography";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -62,7 +63,18 @@ export default function UserTable() {
     sendingRequest();
   }, []);
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box
+      sx={{
+        height: 400,
+        width: "100%",
+        mt: 10,
+        background: "#f8f9fa",
+        borderRadius: 5,
+      }}
+    >
+      <Typography variant="h2" color="#343a40" sx={{ padding: 2 }}>
+        User Table
+      </Typography>
       <DataGrid
         sx={{ padding: 1 }}
         rows={rows || []}
