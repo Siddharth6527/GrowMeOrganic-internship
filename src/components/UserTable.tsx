@@ -72,7 +72,7 @@ export default function UserTable() {
         borderRadius: 5,
       }}
     >
-      <Typography variant="h2" color="#343a40" sx={{ padding: 2 }}>
+      <Typography variant="h3" color="#343a40" sx={{ padding: 2 }}>
         User Table
       </Typography>
       <DataGrid

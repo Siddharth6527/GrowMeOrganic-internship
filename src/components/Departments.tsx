@@ -67,7 +67,6 @@ export default function Departments() {
     >
       <FormControlLabel
         label="Support"
-        // control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
         control={<Checkbox checked={control1[1]} onChange={handleChange2} />}
       />
       <FormControlLabel
@@ -110,7 +109,7 @@ export default function Departments() {
         borderRadius: 20,
       }}
     >
-      <Typography variant="h2" color="#343a40" sx={{ mb: 5 }}>
+      <Typography variant="h3" color="#343a40" sx={{ mb: 5 }}>
         Choose Department
       </Typography>
       <Accordion>
